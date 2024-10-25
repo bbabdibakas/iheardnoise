@@ -1,0 +1,19 @@
+.Sidebar {
+    width: 200px;
+    border-right: 1px solid #181818;
+    padding: 8px;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+}
+
+.link {
+    padding: 8px 16px;
+    border-radius: 8px;
+
+    &:hover {
+        background: #242424;
+    }
+}
