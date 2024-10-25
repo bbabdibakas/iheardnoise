@@ -4,13 +4,17 @@ import ProfilePage from "./pages/ProfilePage"
 
 const App = () => {
     return (
-        <div>
-            <Link to={'/'}>main</Link>
-            <Link to={'/profile'}>profile</Link>
-            <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-            </Routes>
+        <div className={'app'}>
+            <div>
+                <Link to={'/'}>main</Link>
+                <Link to={'/profile'}>profile</Link>
+            </div>
+            <div>
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                </Routes>
+            </div>
         </div>
     )
 }
