@@ -1,5 +1,5 @@
 import { useCallback } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import AppInput from "shared/ui/AppInput/AppInput"
 import { authFormActions } from "../../model/slice/authFormSlice"
 import cls from './AuthForm.module.scss'
@@ -9,9 +9,14 @@ import { getAuthFormPassword } from "../../model/selectors/getAuthFormPassword"
 import { getAuthFormErrorMessage } from "../../model/selectors/getAuthFormErrorMessage"
 import { getAuthFormIsLoading } from "../../model/selectors/getAuthFormIsLoading"
 import { authByUsername } from "../../model/services/authByUsername"
+import { useAppDispatch } from "shared/lib/useAppDispatch/useAppDispatch"
 
-export const AuthForm = () => {
-    const dispatch = useDispatch()
+interface AuthFormProps {
+    onSuccess: () => void
+}
+
+export const AuthForm = ({ onSuccess }: AuthFormProps) => {
+    const dispatch = useAppDispatch()
     const username = useSelector(getAuthFormUsername)
     const password = useSelector(getAuthFormPassword)
     const isLoading = useSelector(getAuthFormIsLoading)
@@ -25,8 +30,11 @@ export const AuthForm = () => {
         dispatch(authFormActions.setPassword(value))
     }, [dispatch, password])
 
-    const onLoginHandler = useCallback(() => {
-        dispatch(authByUsername({ username, password }))
+    const onLoginHandler = useCallback(async () => {
+        const result = await dispatch(authByUsername({ username, password }))
+        if (result.meta.requestStatus === 'fulfilled') {
+            onSuccess()
+        }
     }, [dispatch, username, password])
 
     return (

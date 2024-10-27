@@ -1,14 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { User } from 'entities/User';
+import { userActions } from 'entities/User';
+import { authFormActions } from '../slice/authFormSlice';
 
 interface AuthByUsernameProps {
     username: string;
     password: string;
-}
-
-interface User {
-    id: string
-    username: string
 }
 
 export const authByUsername = createAsyncThunk<
@@ -27,6 +25,9 @@ export const authByUsername = createAsyncThunk<
                 throw new Error();
             }
 
+            dispatch(userActions.setUserData(response.data))
+            dispatch(authFormActions.clearState())
+            
             return response.data;
         } catch (e) {
             if (axios.isAxiosError(e) && e.response?.data) {

@@ -18,6 +18,10 @@ export const authFormSlice = createSlice({
         setPassword: (state, action: PayloadAction<string>) => {
             state.password = action.payload;
         },
+        clearState: (state) => {
+            state.username = ''
+            state.password = ''
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -26,7 +30,6 @@ export const authFormSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(authByUsername.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.isLoading = false;
             })
             .addCase(authByUsername.rejected, (state, action) => {
