@@ -1,0 +1,14 @@
+.SidebarItem {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+
+    &:hover {
+        background: var(--hover-color);
+    }
+}
+
+.label {
+    margin-left: 16px;
+}
