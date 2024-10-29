@@ -1,3 +1,4 @@
+import { ProfileDetails } from "entities/Profile"
 import { AppHeader } from "shared/ui/AppHeader/AppHeader"
 
 const ProfilePage = () => {
@@ -6,7 +7,7 @@ const ProfilePage = () => {
             <AppHeader>
                 Profile
             </AppHeader>
-            ProfilePage
+            <ProfileDetails id={'1'} />
         </div>
     )
 }

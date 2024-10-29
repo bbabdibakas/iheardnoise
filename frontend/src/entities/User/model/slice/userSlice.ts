@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User, UserState } from '../types/UserState';
+import { LOCALSTORAGE_USERDATA_KEY } from 'shared/const/localstorage';
 
 const initialState: UserState = {}
 
@@ -9,14 +10,14 @@ export const userSlice = createSlice({
     reducers: {
         setUserData: (state, action: PayloadAction<User>) => {
             state.userData = action.payload;
-            localStorage.setItem('LOCALSTORAGE_USERDATA_KEY', JSON.stringify(action.payload))
+            localStorage.setItem(LOCALSTORAGE_USERDATA_KEY, JSON.stringify(action.payload))
         },
         resetUserData: (state) => {
-            localStorage.removeItem('LOCALSTORAGE_USERDATA_KEY')
+            localStorage.removeItem(LOCALSTORAGE_USERDATA_KEY)
             state.userData = undefined;
         },
         initUserData: (state) => {
-            const userData = localStorage.getItem('LOCALSTORAGE_USERDATA_KEY')
+            const userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEY)
             if (userData) {
                 state.userData = JSON.parse(userData)
             }

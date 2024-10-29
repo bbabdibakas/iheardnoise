@@ -19,6 +19,16 @@ const delayMiddleware = (req, res, next) => {
     }, delay);
 };
 
+const checkAuthorization = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader) {
+        return res.status(403).send('Forbidden: Missing Authorization Header');
+    }
+
+    next();
+};
+
 app.use(delayMiddleware);
 
 app.post('/auth', (req, res) => {
@@ -37,6 +47,27 @@ app.post('/auth', (req, res) => {
             res.json({ id: user.id, username: user.username, });
         } else {
             res.status(403).send('Username or password is invalid');
+        }
+    });
+});
+
+app.use(checkAuthorization);
+
+app.get('/profile/:id', (req, res) => {
+    const { id } = req.params;
+    console.log(id)
+    fs.readFile(dbPath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Internal Server Error');
+        }
+
+        const profiles = JSON.parse(data).profiles;
+        const profile = profiles.find(profile => profile.id === id);
+
+        if (profile) {
+            res.json(profile);
+        } else {
+            res.status(404).send('Profile not found');
         }
     });
 });
