@@ -55,7 +55,7 @@ app.use(checkAuthorization);
 
 app.get('/profile/:id', (req, res) => {
     const { id } = req.params;
-    console.log(id)
+
     fs.readFile(dbPath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Internal Server Error');
@@ -66,6 +66,28 @@ app.get('/profile/:id', (req, res) => {
 
         if (profile) {
             res.json(profile);
+        } else {
+            res.status(404).send('Profile not found');
+        }
+    });
+});
+
+app.get('/post/:id', (req, res) => {
+    const { id } = req.params;
+
+    fs.readFile(dbPath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Internal Server Error');
+        }
+
+        const posts = JSON.parse(data).posts;
+        const profiles = JSON.parse(data).profiles;
+
+        const post = posts.find(post => post.id === id);
+        const profile = profiles.find(profile => profile.id === post.id);
+
+        if (post) {
+            res.json({ id: post.id, profile: profile, content: post.content });
         } else {
             res.status(404).send('Profile not found');
         }

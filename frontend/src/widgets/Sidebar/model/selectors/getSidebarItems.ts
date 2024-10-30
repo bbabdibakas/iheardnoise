@@ -28,6 +28,14 @@ export const getSidebarItems = createSelector(
                     label: 'Profile',
                 },
             );
+            sidebarItemsList.push(
+                {
+                    path: routePath.post,
+                    activeIcon: ProfilePageActiveIcon,
+                    icon: ProfilePageIcon,
+                    label: 'Post',
+                },
+            );
         }
 
         return sidebarItemsList;

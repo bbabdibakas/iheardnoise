@@ -40,13 +40,13 @@ export const ProfileDetails = ({ id }: ProfileDetailsProps) => {
     } else {
         content = (
             <div className={classNames(cls.ProfileDetails, {}, [])}>
-                <div>
+                <div className={cls.name}>
                     {profileData?.name}
                 </div>
-                <div>
-                    {profileData?.username}
+                <div className={cls.username}>
+                    {'@' + profileData?.username}
                 </div>
-                <div>
+                <div className={cls.bio}>
                     {profileData?.bio}
                 </div>
             </div>

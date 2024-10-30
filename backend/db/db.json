@@ -13,5 +13,12 @@
             "name": "Bekzat Abdibakas",
             "bio": "Егошнего/Ихний"
         }
+    ],
+    "posts": [
+        {
+            "id": "1",
+            "profileId": "1",
+            "content": "Hello, Wolrd!"
+        }
     ]
 }
